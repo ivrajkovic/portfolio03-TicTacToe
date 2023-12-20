@@ -32,6 +32,48 @@ def check_tie(b):
         return True
 
 
+# Main function
+def game():
+    # Init
+    print("Welcome to the TicTacToe.\n")
+    print("This is layout of the board.")
+    print("Use numbers 1-9 to select field.")
+    print("Player 'X' is first and Player 'O' is second.\n")
+    print(print_board(board_init) + "\n")
 
+    # Start
+    # Init variables
+    board_play = board_play_init
+    player_symbol = "X"
+    game_over = False
+
+    while not game_over:
+        # Input a move 1-9
+        move = input(f"Player {player_symbol} choose: ")
+        # Validate input
+        if move not in board_init:
+            print("Invalid move. Only numbers 1-9 are allowed.")
+        elif board_play[int(move) - 1] != " ":
+            print("Field already occupied.")
+        # Input is validated
+        else:
+            board_play[int(move) - 1] = player_symbol
+            if player_symbol == "X":
+                player_symbol = "O"
+            else:
+                player_symbol = "X"
+            print("\n" + print_board(board_play) + "\n")
+            # Check if game is won or no more moves available
+            if check_winner(board_play):
+                game_over = True
+            elif check_tie(board_play):
+                game_over = True
+
+    again = input("Play again? (y/no = any other key): ")
+    if again.upper() == "Y":
+        game()
+
+
+game()
 
 
