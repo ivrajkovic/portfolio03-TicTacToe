@@ -1,5 +1,5 @@
-board_init = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-board_play_init = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+# Board variables
+board_moves = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 win_conditions = [
         (0, 1, 2), (3, 4, 5), (6, 7, 8),  # Horizontal win
         (0, 3, 6), (1, 4, 7), (2, 5, 8),  # Vertical win
@@ -33,17 +33,17 @@ def check_tie(b):
 
 
 # Main function
-def game():
+def start_game():
     # Init
     print("Welcome to the TicTacToe.\n")
     print("This is layout of the board.")
     print("Use numbers 1-9 to select field.")
     print("Player 'X' is first and Player 'O' is second.\n")
-    print(print_board(board_init) + "\n")
+    print(print_board(board_moves) + "\n")
 
     # Start
     # Init variables
-    board_play = board_play_init
+    board_play = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
     player_symbol = "X"
     game_over = False
 
@@ -51,7 +51,7 @@ def game():
         # Input a move 1-9
         move = input(f"Player {player_symbol} choose: ")
         # Validate input
-        if move not in board_init:
+        if move not in board_moves:
             print("Invalid move. Only numbers 1-9 are allowed.")
         elif board_play[int(move) - 1] != " ":
             print("Field already occupied.")
@@ -69,11 +69,11 @@ def game():
             elif check_tie(board_play):
                 game_over = True
 
-    again = input("Play again? (y/no = any other key): ")
-    if again.upper() == "Y":
-        game()
+    again = input("Play again? (yes = y / no = any other key): ")
+    if again.lower() == "y":
+        start_game()
 
 
-game()
+start_game()
 
 
